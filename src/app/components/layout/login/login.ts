@@ -27,7 +27,12 @@ export class LoginComponent {
       next: token =>{
         if(token){
           this.loginService.addToken(token);
-          this.router.navigate(['/admin/carros']);
+          if(this.loginService.hasRole("ADMIN")){
+            this.router.navigate(['/admin/carros']);
+          }else if(this.loginService.hasRole("USER")){
+            this.router.navigate(['/admin/marcas']);
+          }
+
         }else{
           alert("usuário ou senha incorretos!");
         }
